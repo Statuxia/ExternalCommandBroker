@@ -1,0 +1,4 @@
+name: ExternalCommandBroker
+version: '1.0'
+main: cc.spherix.externalCommandBroker.ExternalCommandBroker
+api-version: '1.21'
