@@ -25,7 +25,7 @@ public final class ConfigurationManager<T> {
 
     private ConfigurationManager(@NonNull Path path, Class<T> clazz)
         throws IOException, InstantiationException, IllegalAccessException,
-        InvocationTargetException, NoSuchMethodException {
+               InvocationTargetException, NoSuchMethodException {
         this.path = path;
         this.clazz = clazz;
 
@@ -90,13 +90,13 @@ public final class ConfigurationManager<T> {
 
     public static <T> ConfigurationManager<T> of(String path, Class<T> clazz)
         throws IOException, InvocationTargetException, InstantiationException, IllegalAccessException,
-        NoSuchMethodException {
+               NoSuchMethodException {
         return new ConfigurationManager<>(Paths.get(path), clazz);
     }
 
     public static <T> ConfigurationManager<T> of(Path path, Class<T> clazz)
         throws IOException, InvocationTargetException, InstantiationException, IllegalAccessException,
-        NoSuchMethodException {
+               NoSuchMethodException {
         return new ConfigurationManager<>(path, clazz);
     }
 }

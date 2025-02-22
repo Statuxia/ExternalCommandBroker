@@ -9,6 +9,14 @@ public class RabbitMQConfiguration {
     protected String username = "";
     protected String password = "";
     protected Integer port = 5672;
+    protected String queueName = "externalCommand";
+
+    /**
+     * Сохранение сообщений после остановки контейнера
+     */
+    protected boolean durable = true;
+
+    protected Integer batchSize = 20;
 
     public String getHost() {
         return host;
@@ -40,5 +48,29 @@ public class RabbitMQConfiguration {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
+    public boolean isDurable() {
+        return durable;
+    }
+
+    public void setDurable(boolean durable) {
+        this.durable = durable;
+    }
+
+    public Integer getBatchSize() {
+        return batchSize;
+    }
+
+    public void setBatchSize(Integer batchSize) {
+        this.batchSize = batchSize;
     }
 }
