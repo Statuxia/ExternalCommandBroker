@@ -10,6 +10,7 @@ public class RabbitMQConfiguration {
     protected String password = "";
     protected Integer port = 5672;
     protected String queueName = "externalCommand";
+    protected String exchange = "amq.default";
 
     /**
      * Сохранение сообщений после остановки контейнера
@@ -72,5 +73,13 @@ public class RabbitMQConfiguration {
 
     public void setBatchSize(Integer batchSize) {
         this.batchSize = batchSize;
+    }
+
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
     }
 }
