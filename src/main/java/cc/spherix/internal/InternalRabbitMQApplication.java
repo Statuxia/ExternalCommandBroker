@@ -18,6 +18,9 @@ final class InternalRabbitMQApplication {
     private static ConfigurationManager<Configuration> configurationManager;
     private static RabbitMQService service;
 
+    /**
+     * Ручная точка запуска программы. Используется исключительно для тестирования.
+     */
     public static void main(String[] args)
         throws IOException, InvocationTargetException, InstantiationException,
                IllegalAccessException, NoSuchMethodException, TimeoutException {

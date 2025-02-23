@@ -37,6 +37,7 @@ public class RabbitMQService {
         factory.setHost(configuration.getHost());
         factory.setUsername(configuration.getUsername());
         factory.setPassword(configuration.getPassword());
+        factory.setPort(configuration.getPort());
     }
 
     /**
@@ -62,7 +63,7 @@ public class RabbitMQService {
      * Подписываемся на получение сообщений по названию очереди
      */
     public void consume() throws IOException {
-        if (consumed) {
+        if (!connected || consumed) {
             return;
         }
 
@@ -72,21 +73,17 @@ public class RabbitMQService {
             final String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
 
             final Map<String, Object> headers = delivery.getProperties().getHeaders();
-            final Object token = headers.get("token");
+            final Object token = headers.getOrDefault("token", null);
+
+            if (token == null) {
+                return;
+            }
 
             final UUID uuid;
-            switch (token) {
-                case UUID u -> uuid = u;
-                case String s -> {
-                    try {
-                        uuid = UUID.fromString(s);
-                    } catch (Exception ignored) {
-                        return;
-                    }
-                }
-                default -> {
-                    return;
-                }
+            try {
+                uuid = UUID.fromString(token.toString());
+            } catch (Exception e) {
+                return;
             }
 
             queue.add(new MessageDTO(message, uuid));
@@ -94,6 +91,7 @@ public class RabbitMQService {
 
         channel.basicConsume(configuration.getQueueName(), false, deliverCallback, consumerTag -> {
         });
+        consumed = true;
     }
 
     /**
@@ -147,9 +145,11 @@ public class RabbitMQService {
     public void stop() throws IOException, TimeoutException {
         if (channel != null) {
             channel.close();
+            consumed = false;
         }
         if (connection != null) {
             connection.close();
+            connected = false;
         }
     }
 
@@ -165,5 +165,13 @@ public class RabbitMQService {
 
     public static RabbitMQService of(RabbitMQConfiguration configuration) {
         return MQ_SERVICES.computeIfAbsent(configuration, RabbitMQService::new);
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public boolean isConsumed() {
+        return consumed;
     }
 }
