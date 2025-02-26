@@ -200,11 +200,12 @@ public class RabbitMQService {
      * Закрываем коннекты и канал
      */
     public void stop() throws IOException, TimeoutException {
-        if (channel != null) {
+        if (channel != null && channelCreated) {
             channel.close();
+            channelCreated = false;
             consumed = false;
         }
-        if (connection != null) {
+        if (connection != null && connected) {
             connection.close();
             connected = false;
         }

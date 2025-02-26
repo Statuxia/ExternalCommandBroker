@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Configuration {
 
     protected RabbitMQConfiguration rabbitMQ = new RabbitMQConfiguration();
+    protected HikariCPConfiguration hikariCP = new HikariCPConfiguration();
 
     public RabbitMQConfiguration getRabbitMQ() {
         return rabbitMQ;
@@ -13,5 +14,13 @@ public class Configuration {
 
     public void setRabbitMQ(RabbitMQConfiguration rabbitMQ) {
         this.rabbitMQ = rabbitMQ;
+    }
+
+    public HikariCPConfiguration getHikariCP() {
+        return hikariCP;
+    }
+
+    public void setHikariCP(HikariCPConfiguration hikariCP) {
+        this.hikariCP = hikariCP;
     }
 }
