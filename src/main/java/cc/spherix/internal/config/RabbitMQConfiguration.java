@@ -13,7 +13,9 @@ public class RabbitMQConfiguration {
     protected String exchange = "amq.default";
 
     /**
-     * Сохранение сообщений после остановки контейнера
+     * Сохранение сообщений после остановки контейнера<br>
+     * Эта настройка устанавливается при первом вызове queueDeclare, который создает очередь<br>
+     * Далее действует как гарант того, что очередь работает в ожидаемом виде
      */
     protected boolean durable = true;
 
