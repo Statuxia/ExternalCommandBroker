@@ -20,7 +20,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@Disabled(value = "need manual test")
+@Disabled(value = "need manual test")
 class RabbitMQServiceTest {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
