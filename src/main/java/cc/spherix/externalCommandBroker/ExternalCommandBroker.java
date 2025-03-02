@@ -50,7 +50,7 @@ public final class ExternalCommandBroker extends JavaPlugin {
             rabbitMQService.getBatch().forEach(command -> {
                 final UUID token = command.token();
 
-                if (token == null || validUuids.contains(token.toString())) {
+                if (token == null || !validUuids.contains(token.toString())) {
                     return;
                 }
 
